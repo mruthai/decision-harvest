@@ -2,7 +2,6 @@ export default function AgSoy(props) {
     console.log(props, 'from Ag-Soy')
     return (
         <div className="App">
-
             <div className="history-container">
                 <div>
                     <h3>Soybean Value</h3>

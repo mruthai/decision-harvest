@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
 import { DataContext } from '../contexts/DataProvider'
 import { useParams } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthProvider'
 
 export default function AgPrice() {
-    const { getStockData, addCorn, corn, addSoybeans, soybeans } = useContext(DataContext)
+    const { getStockData, addCorn, corns, addSoybeans, soybeans } = useContext(DataContext)
     const [futures, setFutures] = useState({})
     const [loadingState, setLoadingState] = useState("LOADING")
     const [postError, setPostError] = useState(false)
@@ -11,6 +12,7 @@ export default function AgPrice() {
     const [mySoybeans, setMySoybeans] = useState('')
     const { id, uid } = useParams()
     const API_KEY = process.env.REACT_APP_API_KEY
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         async function handleLoad() {
@@ -68,6 +70,7 @@ export default function AgPrice() {
                         <h2 className="table-title">Current Market Commodity Price</h2>
 
                         <div className="table-container">
+
                             <table className="table-c">
                                 <thead>
                                     <tr>
@@ -77,6 +80,10 @@ export default function AgPrice() {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {
+                                        (user.loggedIn) 
+                                        
+                                    }
                                     <tr>
                                         <td className="stock-valueA">Corn</td>
                                         <td className="stock-valueB">${Math.round(100 * (1 / futures.data.rates.CORN)) / 100}</td>
@@ -117,8 +124,8 @@ export default function AgPrice() {
                                 </form>
                                 <div>
                                     <div className="value-box">
-                                        {corn.length ? <h4>${corn[0].corns} </h4> : <p> No data</p>}
-                                        {corn.length ? <p className="date-text" > {corn[0].dateCreated.toDate().toString()}</p> : <p>No Data</p>}
+                                        {corns.length ? <h4>${corns[0].corn} </h4> : <p> No Data</p>}
+                                        {corns.length ? <p className="date-text" > {corns[0].dateCreated.toDate().toString()}</p> : <p>No Data</p>}
                                     </div>
                                 </div>
                             </div>
@@ -140,8 +147,8 @@ export default function AgPrice() {
                                 </form>
                                 <div>
                                     <div className="value-box">
-                                        {soybeans.length ? <h4>${soybeans[0].soybean} </h4> : <p> No data</p>}
-                                        {soybeans.length ? <p className="date-text" > {soybeans[0].dateCreated.toDate().toString()}</p> : <p>No data</p>}
+                                        {soybeans.length ? <h4>${soybeans[0].soybean} </h4> : <p> No Data</p>}
+                                        {soybeans.length ? <p className="date-text" > {soybeans[0].dateCreated.toDate().toString()}</p> : <p>No Data</p>}
                                     </div>
 
                                 </div>

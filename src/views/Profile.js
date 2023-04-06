@@ -10,11 +10,11 @@ export default function Profile() {
 
     return (
         <div className ="App-header">
+            <h1>Assisting your farm decisions</h1>
+            <div>
             {
                 (user.loggedIn)
             }
-            <h1>Assisting your farm decisions</h1>
-            <div>
                 <AgPrice />
            
             </div>

@@ -8,19 +8,19 @@ import { DataContext } from '../contexts/DataProvider'
 
 export default function Commodities() {
     const { user } = useContext(AuthContext)
-    const { corn } = useContext(DataContext)
+    const { corns } = useContext(DataContext)
     
     
     return (
-        <header className="history">
+        <header className="App-header">
             <h1> Corn History Value</h1>
             
             <img src="./images/corn.png" alt="" /> 
             {
                 (user.loggedIn)
             }
-            <div className="history-main-container">
-            {corn.map((c) => <AgPost corn={[c.corns, c.dateCreated.toDate().toString()]} key={c.id}/>)}
+            <div>
+            {corns.map((c) => <AgPost corns={[c.corn, c.dateCreated.toDate().toString()]} key={c.id}/>)}
             </div>
             
         </header>

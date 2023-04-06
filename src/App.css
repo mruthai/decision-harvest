@@ -135,9 +135,8 @@ Commodities
 
 .history-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap-reverse;
   border-style: solid;
   border-color: 1px, white;
   border-radius: 7px;

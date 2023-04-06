@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { getFirestore, getDocs, collection, doc, getDoc, addDoc, Timestamp, collectionGroup, query, deleteDoc } from '@firebase/firestore'
+import { getFirestore, getDocs, collection, doc, getDoc, addDoc, Timestamp, query, deleteDoc, deleteField, updateDoc } from '@firebase/firestore'
 import { AuthContext } from './AuthProvider'
 
 
@@ -7,7 +7,7 @@ export const DataContext = createContext()
 
 export const DataProvider = function(props) {
     const [stockData, setStockData] = useState({})
-    const [corn, setCorn] = useState([])
+    const [corns, setCorns] = useState([])
     const [soybeans, setSoybeans] = useState([])
     const [currentWeatherData, setCurrentWeatherData] = useState({})
     const [cities, setCities] = useState([])
@@ -84,7 +84,7 @@ async function getStockData(API_KEY) {
 
     useEffect(() => {
         async function getCorn() {
-            const postQuery = query(collection(db, 'users', userId, 'corn'))    /* userID, Cities to only have user view their own collection */
+            const postQuery = query(collection(db, 'users', userId, 'corns'))    /* userID, Cities to only have user view their own collection */
             const querySnapshot = await getDocs(postQuery)
             const loadedCorn = []
             querySnapshot.forEach((doc) => {
@@ -97,7 +97,7 @@ async function getStockData(API_KEY) {
                 })
                 console.log(loadedCorn)
             })
-             setCorn(loadedCorn)
+             setCorns(loadedCorn)
              console.log(querySnapshot)
         }
 
@@ -113,25 +113,46 @@ async function getStockData(API_KEY) {
     //         throw new Error
     //     }
     //     return docSnap.data()
-    // }
-
-    async function addCorn(corns) {
+    // }    
+    async function addCorn(corn) {
         const newCorn = {
-            corns,
+            corn,
             dateCreated: Timestamp.now()
         }
-        const docRef = await addDoc(collection(db, 'users', user.uid, 'corn'), newCorn)
+        const docRef = await addDoc(collection(db, 'users', user.uid, 'corns'), newCorn)
         
         newCorn.id = docRef.id
-
-        setCorn ([
+        
+        setCorns ([
             newCorn,
-            ...corn
+            ...corns
         ])
         window.location.reload()
         return newCorn
     }
-
+    
+    async function deleteCorn(uid, id) {
+        console.log( 'deleteCorn1')
+        const docRef = doc(db, 'users/' + user.uid + '/corns/' + uid)
+        console.log( 'deleteCorn2')
+        console.log(docRef)
+        await deleteDoc(docRef)
+        console.log( 'deleteCorn3')
+        setCorns(lastCorn=>lastCorn.filter(corns => corns.uid !== id))
+        console.log( 'deleteCorn4')
+       
+    }
+    // async function deleteCorn(uid) {
+    //     console.log( 'deleteCorn1')
+    //     const docRef = doc(db, 'users/' + user.uid + '/corns/' + uid)
+    //     console.log( 'deleteCorn2')
+    //     console.log(docRef)
+    //     await deleteDoc(docRef)
+    //     console.log( 'deleteCorn3')
+    //     setCorns(lastCorn=>lastCorn.filter(corns => corns.uid !== uid))
+    //     console.log( 'deleteCorn4')
+       
+    // }
 /* COMMODITIES SOYBEAN DATA FUNCTIONS */
 
     useEffect(() => {
@@ -192,9 +213,10 @@ async function getStockData(API_KEY) {
         getStockData,
         stockData,
         addCorn,
-        corn,
+        corns,
         addSoybeans,
-        soybeans 
+        soybeans,
+        deleteCorn 
 
         // getCorn
         
