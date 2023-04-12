@@ -6,9 +6,6 @@ export default function AgPost(props) {
     console.log(props, 'from ag-post')
     const { deleteCorn } = useContext(DataContext)
     
-
-
-
     return (
         <div className="App">
             <div className="history-container">

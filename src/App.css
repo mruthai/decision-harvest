@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 .App {
   text-align: center;
 }
@@ -48,6 +51,26 @@ ul {
   text-decoration: none;
   display: flex;
   align-items: center;
+}
+
+.nav-link{
+  color: #282c34;
+  text-decoration: none;
+  font-weight: bold;
+}
+.nav-link:hover {
+  color: rgb(189, 30, 30);
+  text-decoration: none;
+}
+
+.auth-btn {
+  background-color: gray;
+  border-radius: 6px;
+  color: white;
+  margin-left: 10 rem;
+  border-style: none;
+  width: 4rem;
+  height: 1.5rem;
 }
 
 /* 

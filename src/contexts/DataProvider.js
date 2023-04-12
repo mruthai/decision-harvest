@@ -131,17 +131,20 @@ async function getStockData(API_KEY) {
         return newCorn
     }
     
+
     async function deleteCorn(uid, id) {
-        console.log( 'deleteCorn1')
-        const docRef = doc(db, 'users/' + user.uid + '/corns/' + uid)
-        console.log( 'deleteCorn2')
-        console.log(docRef)
-        await deleteDoc(docRef)
-        console.log( 'deleteCorn3')
-        setCorns(lastCorn=>lastCorn.filter(corns => corns.uid !== id))
-        console.log( 'deleteCorn4')
-       
+        try {
+        const docRef = doc(db,`users/${user.uid}/corns/${uid}`);
+        console.log('docRef:', docRef);
+        await deleteDoc(docRef);
+        console.log('Document successfully deleted.');
+        setCorns(prevCorns => prevCorns.filter(corns => corns.uid !== id))
+      } catch (error) {
+        console.error('Error deleting document: ', error);
+      }
     }
+       
+
     // async function deleteCorn(uid) {
     //     console.log( 'deleteCorn1')
     //     const docRef = doc(db, 'users/' + user.uid + '/corns/' + uid)

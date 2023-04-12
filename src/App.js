@@ -18,21 +18,20 @@ function App() {
           <ul>
             <img src="./images/farms.png" alt="" />
             
-            <li><Link to="/">Decision Harvest</Link> </li>
-            
-            <li><Link to="/profile">Profile</Link> </li>
-            <li><Link to="/commodities">Corn History</Link> </li>
-            <li><Link to="/soybeans">Soybean History</Link> </li>
+            <li><Link className="nav-link" to="/">Decision Harvest</Link> </li>
+            <li><Link className="nav-link" to="/profile">Profile</Link> </li>
+            <li><Link className="nav-link" to="/commodities">Corn History</Link> </li>
+            <li><Link className="nav-link" to="/soybeans">Soybean History</Link> </li>
             {/* <li><Link to="/weather">Weather</Link> </li> */}
-            <p>{user.displayName}</p>
             {
               (user.loggedIn) ?
-                <>
-                  <button className="btn" onClick={logout}> Logout</button>
+              <>
+                  <button className="auth-btn" onClick={logout}> Logout</button>
                 </> :
-                <button className="btn" onClick={login}> Login</button>
-            }
+                <button className="auth-btn" onClick={login}> Login</button>
+              }
 
+              <li>{user.displayName}</li>
           </ul>
         </nav>
 
