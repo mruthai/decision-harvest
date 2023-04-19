@@ -10,14 +10,14 @@ export const DataProvider = function(props) {
     const [corns, setCorns] = useState([])
     const [soybeans, setSoybeans] = useState([])
     const [currentWeatherData, setCurrentWeatherData] = useState({})
-    const [cities, setCities] = useState([])
+    const [zips, setZips] = useState([])
     const { user, userId } = useContext(AuthContext)
     const db = getFirestore()
 
 /* Weather Data Functions */
     useEffect(() => {
-        async function getCities() {
-            const postQuery = query(collection(db, 'users', userId, 'cities'))    /* userID, Cities to only have user view their own collection */
+        async function getZips() {
+            const postQuery = query(collection(db, 'users', userId, 'zips'))    /* userID, Cities to only have user view their own collection */
             const querySnapshot = await getDocs(postQuery)
             const loadedCities = []
             querySnapshot.forEach((doc) => {
@@ -31,17 +31,17 @@ export const DataProvider = function(props) {
                 console.log(loadedCities)
                 
             })
-            setCities(loadedCities)
+            setZips(loadedCities)
         }
 
        if (user.loggedIn ) {
-        getCities()
+        getZips()
        }
         
     }, [userId])
 
     async function getWeatherDoc(uid, id) {
-        const docRef = doc(db, 'users', uid, 'cities', id)
+        const docRef = doc(db, 'users', uid, 'zips', id)
         const docSnap = await getDoc(docRef)
         if (!docSnap.exists()) {
             throw new Error()
@@ -52,26 +52,26 @@ export const DataProvider = function(props) {
     
     async function getCurrentWeatherData(API_KEY_W, zip) {
         console.log('check dataprovider weather working')
-        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY_W}&q=${zip}&aqi=no`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${API_KEY_W}`)
         const data = await response.json()
-        console.log(data)
+        console.log(data, "do this work")
         setCurrentWeatherData(data)
         
     }
 
-    async function addCity(zip) {
-        const newCity = {
+    async function addZip(zip) {
+        const newZip = {
             zip
         }
-        const docRef = await addDoc(collection(db, 'users', user.uid, 'cities'), newCity)
-        newCity.id = docRef.id
+        const docRef = await addDoc(collection(db, 'users', user.uid, 'zips'), newZip)
+        newZip.id = docRef.id
 
-        setCities ([
-            newCity,
-            ...cities
+        setZips ([
+            newZip,
+            ...zips
         ])
         window.location.reload()
-        return newCity
+        return newZip
     }
 /* COMMODITIES CORN DATA FUNCTIONS */
 
@@ -208,11 +208,11 @@ async function getStockData(API_KEY) {
     }
 
     const value = {
-        // getWeatherDoc,
+        getWeatherDoc,
         getCurrentWeatherData,
         currentWeatherData,
-        cities,
-        addCity,
+        zips,
+        addZip,
         getStockData,
         stockData,
         addCorn,

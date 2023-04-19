@@ -26,15 +26,17 @@ function App() {
                   <li><Link className="nav-link" to="/profile">Profile</Link> </li>
                   <li><Link className="nav-link" to="/commodities">Corn History</Link> </li>
                   <li><Link className="nav-link" to="/soybeans">Soybean History</Link> </li>
+                  <li><Link className="nav-link" to="/weather">Weather Selection</Link> </li>
+
                   <button className="auth-btn" onClick={logout}> Logout</button>
                 </> :
 
-                <li>{user.displayName}</li>
-            }
+                <button className="auth-btn" onClick={login}> Login</button>
+              }
           </ul>
           <ul>
+              <li>{user.displayName}</li>
 
-            <button className="auth-btn" onClick={login}> Login</button>
           </ul>
         </nav>
 
