@@ -15,23 +15,26 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <nav className="nav-bar">
-          <ul>
+          <ul className="nav-left">
             <img src="./images/farms.png" alt="" />
-            
-            <li><Link className="nav-link" to="/">Decision Harvest</Link> </li>
-            <li><Link className="nav-link" to="/profile">Profile</Link> </li>
-            <li><Link className="nav-link" to="/commodities">Corn History</Link> </li>
-            <li><Link className="nav-link" to="/soybeans">Soybean History</Link> </li>
+
             {/* <li><Link to="/weather">Weather</Link> </li> */}
             {
               (user.loggedIn) ?
-              <>
+                <>
+                  <li><Link className="nav-link" to="/">Decision Harvest</Link> </li>
+                  <li><Link className="nav-link" to="/profile">Profile</Link> </li>
+                  <li><Link className="nav-link" to="/commodities">Corn History</Link> </li>
+                  <li><Link className="nav-link" to="/soybeans">Soybean History</Link> </li>
                   <button className="auth-btn" onClick={logout}> Logout</button>
                 </> :
-                <button className="auth-btn" onClick={login}> Login</button>
-              }
 
-              <li>{user.displayName}</li>
+                <li>{user.displayName}</li>
+            }
+          </ul>
+          <ul>
+
+            <button className="auth-btn" onClick={login}> Login</button>
           </ul>
         </nav>
 
