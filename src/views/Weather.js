@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/AuthProvider'
 import WeatherForm from '../components/WeatherForm'
 
 export default function WeatherSingle() {
-    const { login, user, logout } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { id, uid } = useParams()
     const { getCurrentWeatherData, getWeatherDoc } = useContext(DataContext)
     const [zipData, setZipData] = useState({})
@@ -21,12 +21,13 @@ export default function WeatherSingle() {
                 setZipData(data)
                 console.log(data, 'hit this weather')
                 const zip = data.zip
-                const zipData = await getCurrentWeatherData(API_KEY_W, zip)
+                console.log(zip, 'test weather')
+                const weather = await getCurrentWeatherData(API_KEY_W, zip)
                 console.log("test weather")
-                if(zipData.cod!="200")
+                if(weather.cod!="200")
                 {setPostError(true)}
                 else{
-                setZipData(zipData)
+                setZipData(weather)
                 
                 setLoadingState("LOADED")
                 }
@@ -35,13 +36,12 @@ export default function WeatherSingle() {
             }
         }
 
-
         if (user.loggedIn) {
             handleLoad()
 
         }
     }, [uid, id])
-
+    
     return (
         <div className="App">
             <div>
@@ -53,9 +53,7 @@ export default function WeatherSingle() {
             {(loadingState === "LOADING") ?
                 <p>Loading...</p> : 
                 <div>
-
-                    <p>{zipData.weather}</p>
-
+                    <p>{zipData.main.temp}</p>
                 </div>
             }
 
@@ -66,3 +64,32 @@ export default function WeatherSingle() {
         </div>
     )
 }
+// useEffect(() => {
+//     async function handleLoad() {
+//         try {
+//             const data = await getWeatherDoc(uid, id)
+//             console.log('check weather page is working')
+//             setZipData(data)
+//             console.log(data, 'hit this weather')
+//             const zip = data.zip
+//             console.log(zip, 'test weather')
+//             const weather = await getCurrentWeatherData(API_KEY_W, zip)
+//             console.log("test weather")
+//             if(weather.cod!="200")
+//             {setPostError(true)}
+//             else{
+//             setWeather(weather)
+            
+//             setLoadingState("LOADED")
+//             }
+//         } catch (err) {
+//             setPostError(true)
+//         }
+//     }
+
+
+//     if (user.loggedIn) {
+//         handleLoad()
+
+//     }
+// }, [uid, id])

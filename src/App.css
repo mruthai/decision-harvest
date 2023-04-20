@@ -38,7 +38,7 @@
 Nav Bar
 */
 
-.nav-bar{
+.nav-left{
   align-content: space-between;
   display: flex;
 }

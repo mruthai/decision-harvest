@@ -52,10 +52,10 @@ export const DataProvider = function(props) {
     
     async function getCurrentWeatherData(API_KEY_W, zip) {
         console.log('check dataprovider weather working')
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${API_KEY_W}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${API_KEY_W}&units=imperial`)
         const data = await response.json()
         console.log(data, "do this work")
-        setCurrentWeatherData(data)
+        return data
         
     }
 
@@ -114,9 +114,11 @@ async function getStockData(API_KEY) {
     //     }
     //     return docSnap.data()
     // }    
-    async function addCorn(corn) {
+    async function addCorn(corn, valueCorn, bushels) {
         const newCorn = {
             corn,
+            valueCorn,
+            bushels,
             dateCreated: Timestamp.now()
         }
         const docRef = await addDoc(collection(db, 'users', user.uid, 'corns'), newCorn)

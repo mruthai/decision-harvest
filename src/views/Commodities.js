@@ -20,7 +20,8 @@ export default function Commodities() {
                 (user.loggedIn)
             }
             <div>
-            {corns.map((c) => <AgPost corns={[c.corn, c.dateCreated.toDate().toString()]} key={c.id}/>)}
+            {corns.map((c) => <AgPost corns={[c.corn, c.dateCreated.toDate().toString(), c.valueCorn, c.bushels]} key={c.id}/>)}
+            
             </div>
             
         </header>

@@ -34,8 +34,8 @@ function App() {
                 <button className="auth-btn" onClick={login}> Login</button>
               }
           </ul>
-          <ul>
-              <li>{user.displayName}</li>
+          <ul className="nav-right">
+              <li >{user.displayName}</li>
 
           </ul>
         </nav>
