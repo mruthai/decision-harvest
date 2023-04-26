@@ -48,7 +48,7 @@ export default function AgPrice() {
     // capture corn value of user input
     async function handleSubmit(e) {
         e.preventDefault()
-        const newCorn = await addCorn((Math.round(100 * (1 / futures.data.rates.CORN)) / 100) * myCorn, (Math.round(100 * (1 / futures.data.rates.CORN)) / 100), myCorn)
+        const newCorn = await addCorn((Math.round(futures.data[0].value) * 0.0254) * myCorn, (Math.round(futures.data[0].value) * 0.0254), myCorn)
         setMyCorn('')
         console.log(newCorn, 'coming from AgPrice')
     }
@@ -75,7 +75,7 @@ export default function AgPrice() {
                                 <thead>
                                     <tr>
                                         <th>Commodity Type</th>
-                                        <th>Current Market Value</th>
+                                        <th>Past Month Market Value</th>
                                         <th>Units</th>
                                     </tr>
                                 </thead>
@@ -86,18 +86,8 @@ export default function AgPrice() {
                                     }
                                     <tr>
                                         <td className="stock-valueA">Corn</td>
-                                        <td className="stock-valueB">${Math.round(100 * (1 / futures.data.rates.CORN)) / 100}</td>
+                                        <td className="stock-valueB">${Math.round(futures.data[0].value) * 0.0254}</td>
                                         <td className="stock-valueC">Per Bushel</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="stock-valueA">Soybean</td>
-                                        <td className="stock-valueB">${Math.round(100 * (1 / futures.data.rates.SOYBEAN)) / 100}</td>
-                                        <td className="stock-valueC">Per Bushel</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="stock-valueA">Lean Hog</td>
-                                        <td className="stock-valueB">${Math.round(100 * (1 / futures.data.rates.LHOG)) / 100}</td>
-                                        <td className="stock-valueC">Per lb</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -146,10 +136,10 @@ export default function AgPrice() {
                                     </div>
                                 </form>
                                 <div>
-                                    <div className="value-box">
+                                    {/* <div className="value-box">
                                         {soybeans.length ? <h4>${soybeans[0].soybean} </h4> : <p> No Data</p>}
                                         {soybeans.length ? <p className="date-text" > {soybeans[0].dateCreated.toDate().toString()}</p> : <p>No Data</p>}
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>

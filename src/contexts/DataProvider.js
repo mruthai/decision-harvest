@@ -9,74 +9,14 @@ export const DataProvider = function(props) {
     const [stockData, setStockData] = useState({})
     const [corns, setCorns] = useState([])
     const [soybeans, setSoybeans] = useState([])
-    const [currentWeatherData, setCurrentWeatherData] = useState({})
-    const [zips, setZips] = useState([])
     const { user, userId } = useContext(AuthContext)
     const db = getFirestore()
 
-/* Weather Data Functions */
-    useEffect(() => {
-        async function getZips() {
-            const postQuery = query(collection(db, 'users', userId, 'zips'))    /* userID, Cities to only have user view their own collection */
-            const querySnapshot = await getDocs(postQuery)
-            const loadedCities = []
-            querySnapshot.forEach((doc) => {
-                 console.log(doc.id, doc.data())
-                loadedCities.push({
-                    id: doc.id,
-                    uid: doc.ref.parent.parent.id,
-                    ...doc.data()
-                
-                })
-                console.log(loadedCities)
-                
-            })
-            setZips(loadedCities)
-        }
 
-       if (user.loggedIn ) {
-        getZips()
-       }
-        
-    }, [userId])
-
-    async function getWeatherDoc(uid, id) {
-        const docRef = doc(db, 'users', uid, 'zips', id)
-        const docSnap = await getDoc(docRef)
-        if (!docSnap.exists()) {
-            throw new Error()
-        }
-        return docSnap.data()
-    }
-
-    
-    async function getCurrentWeatherData(API_KEY_W, zip) {
-        console.log('check dataprovider weather working')
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&appid=${API_KEY_W}&units=imperial`)
-        const data = await response.json()
-        console.log(data, "do this work")
-        return data
-        
-    }
-
-    async function addZip(zip) {
-        const newZip = {
-            zip
-        }
-        const docRef = await addDoc(collection(db, 'users', user.uid, 'zips'), newZip)
-        newZip.id = docRef.id
-
-        setZips ([
-            newZip,
-            ...zips
-        ])
-        window.location.reload()
-        return newZip
-    }
 /* COMMODITIES CORN DATA FUNCTIONS */
 
 async function getStockData(API_KEY) {
-    const response = await fetch(`https://commodities-api.com/api/latest?access_key=${API_KEY}&base=USD&symbols=`)
+    const response = await fetch(`https://www.alphavantage.co/query?function=Corn&interval=monthly&apikey=${API_KEY}`)
     const data = await response.json()
     setStockData(data)
     return data
@@ -106,14 +46,7 @@ async function getStockData(API_KEY) {
         }
     }, [userId])
 
-    // async function showCorn(uid,id) {
-    //     const docRef = doc(db, 'users', uid, 'corn', id)
-    //     const docSnap = await getDoc(docRef)
-    //     if (!docSnap.exists()) {
-    //         throw new Error
-    //     }
-    //     return docSnap.data()
-    // }    
+   
     async function addCorn(corn, valueCorn, bushels) {
         const newCorn = {
             corn,
@@ -147,17 +80,7 @@ async function getStockData(API_KEY) {
     }
        
 
-    // async function deleteCorn(uid) {
-    //     console.log( 'deleteCorn1')
-    //     const docRef = doc(db, 'users/' + user.uid + '/corns/' + uid)
-    //     console.log( 'deleteCorn2')
-    //     console.log(docRef)
-    //     await deleteDoc(docRef)
-    //     console.log( 'deleteCorn3')
-    //     setCorns(lastCorn=>lastCorn.filter(corns => corns.uid !== uid))
-    //     console.log( 'deleteCorn4')
-       
-    // }
+
 /* COMMODITIES SOYBEAN DATA FUNCTIONS */
 
     useEffect(() => {
@@ -182,16 +105,6 @@ async function getStockData(API_KEY) {
         }
     }, [userId])
 
-    
-
-    // async function showOneSoybeans(uid,id) {
-    //     const docRef = doc(db, 'users', uid, 'Soybeans', id)
-    //     const docSnap = await getDoc(docRef)
-    //     if (!docSnap.exists()) {
-    //         throw new Error
-    //     }
-    //     return docSnap.data()
-    // }
 
     async function addSoybeans(soybean) {
         const newSoybeans = {
@@ -210,11 +123,6 @@ async function getStockData(API_KEY) {
     }
 
     const value = {
-        getWeatherDoc,
-        getCurrentWeatherData,
-        currentWeatherData,
-        zips,
-        addZip,
         getStockData,
         stockData,
         addCorn,
