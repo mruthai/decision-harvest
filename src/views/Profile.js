@@ -1,9 +1,8 @@
-import { useState, useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom'
-// import { DataContext } from '../contexts/DataProvider'
+import {  useContext } from 'react'
 import { AuthContext } from '../contexts/AuthProvider'
 import AgPrice from '../components/AgPrice'
-// import AgPost from '../components/AgPost'
+import HistoryCorn from '../components/HistoryCorn'
+
 
 export default function Profile() {
     const { login, user, logout } = useContext(AuthContext)
@@ -16,7 +15,7 @@ export default function Profile() {
                 (user.loggedIn)
             }
                 <AgPrice />
-           
+                <HistoryCorn/>
             </div>
 
         </div>

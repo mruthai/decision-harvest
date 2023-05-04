@@ -4,8 +4,7 @@ import { useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './views/Home'
 import Profile from './views/Profile'
-import Commodities from './views/Commodities'
-import Weather from './views/Weather'
+import Commodities from './views/MyCornData'
 import Soybeans from './views/Soybeans'
 import { AuthContext } from './contexts/AuthProvider'
 
@@ -26,7 +25,7 @@ function App() {
                   <li><Link className="nav-link" to="/profile">Profile</Link> </li>
                   <li><Link className="nav-link" to="/commodities">Corn History</Link> </li>
                   <li><Link className="nav-link" to="/soybeans">Soybean History</Link> </li>
-                  <li><Link className="nav-link" to="/weather">Weather Selection</Link> </li>
+                  
 
                   <button className="auth-btn" onClick={logout}> Logout</button>
                 </> :
@@ -46,7 +45,7 @@ function App() {
         <Route path="/commodities" element={<Commodities />} />
         <Route path="/soybeans" element={<Soybeans />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/weather" element={<Weather />} />           {/* weather = :uid/:id */}
+                 {/* weather = :uid/:id */}
       </Routes>
     </BrowserRouter>
   );

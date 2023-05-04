@@ -47,12 +47,12 @@ async function getStockData(API_KEY) {
     }, [userId])
 
    
-    async function addCorn(corn, valueCorn, bushels) {
+    async function addCorn( cornBushel, cornValue, cornStock) {
         const newCorn = {
-            corn,
-            valueCorn,
-            bushels,
-            dateCreated: Timestamp.now()
+            cornValue,
+            cornBushel,
+            dateCreated: Timestamp.now(),
+            cornStock,
         }
         const docRef = await addDoc(collection(db, 'users', user.uid, 'corns'), newCorn)
         

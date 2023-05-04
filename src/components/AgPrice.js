@@ -48,7 +48,7 @@ export default function AgPrice() {
     // capture corn value of user input
     async function handleSubmit(e) {
         e.preventDefault()
-        const newCorn = await addCorn((Math.round(futures.data[0].value) * 0.0254) * myCorn, (Math.round(futures.data[0].value) * 0.0254), myCorn)
+        const newCorn = await addCorn(myCorn, (Math.round(futures.data[0].value) * 0.0254) * myCorn, (Math.round(futures.data[0].value) * 0.0254))
         setMyCorn('')
         console.log(newCorn, 'coming from AgPrice')
     }
@@ -114,7 +114,7 @@ export default function AgPrice() {
                                 </form>
                                 <div>
                                     <div className="value-box">
-                                        {corns.length ? <h4>${corns[0].corn} </h4> : <p> No Data</p>}
+                                    {corns.length ?<h4>${corns[0].cornValue} </h4> : <p> No Data</p>}
                                         {corns.length ? <p className="date-text" > {corns[0].dateCreated.toDate().toString()}</p> : <p>No Data</p>}
                                     </div>
                                 </div>
