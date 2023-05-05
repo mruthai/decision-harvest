@@ -1,7 +1,6 @@
-import {  useContext } from 'react'
+import HistoryCorn from '../components/HistoryCorn'
+import { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../contexts/AuthProvider'
-import AgPrice from '../components/AgPrice'
-
 
 
 export default function Profile() {
@@ -14,8 +13,8 @@ export default function Profile() {
             {
                 (user.loggedIn)
             }
-                <AgPrice />
-               
+                 <HistoryCorn/>
+                
             </div>
 
         </div>

@@ -1,26 +1,42 @@
 import { DataContext } from "../contexts/DataProvider"
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useParams } from "react-router-dom"
 
-export default function AgPost(props, cornValue) {
-    console.log(props, 'from ag-post')
-    const { deleteCorn } = useContext(DataContext)
+export default function CornPost(props) {
+    console.log(props, 'from cornPost')
+    const { deleteCorn, corns } = useContext(DataContext)
+    const [data, setData] = useState([])
     
+    const handleDelete = (id) => {
+        const newData = data.filter((item) => item.id !== id);
+        setData(newData);
+      };
+    
+
     return (
         <div className="App">
-            <div className="history-container">
-                <div className="history-sub-container">
-                    <div className="history-box">
-                        <h3>Corn Value</h3>
-                        <h3>${props.corns[2]}</h3>
-                        <p className="date-text">Month Stock Value: ${props.corns[1]} per bushel</p>
-                        <p className="date-text">Bushels amount: {props.corns[0]}</p>
-                        <p className="date-text">Date of submission</p>
-                        <p className="date-text">{props.corns[3]}</p>
-                        <button className="btn" onClick={() => deleteCorn(props.corns.uid, props.corns.id)}>Delete Value</button>
-                    </div>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stock Value</th>
+                        <th>Bushel Amount</th>
+                        <th>Corn value</th>
+                        <th>Date of Submission</th>
+                        <th>Remove Submission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {corns.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.cornStock}</td>
+                            <td>{item.cornBushel}</td>
+                            <td>{item.cornValue}</td>
+                            <td>{item.dateCreated.toDate().toString()}</td>
+                            <td><button className="btn" onClick={(e) => handleDelete(deleteCorn(item.id, e))}>Delete Value</button></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }

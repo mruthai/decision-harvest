@@ -28,12 +28,10 @@ async function getStockData(API_KEY) {
             const querySnapshot = await getDocs(postQuery)
             const loadedCorn = []
             querySnapshot.forEach((doc) => {
-                // console.log(doc.id, doc.data())
                 loadedCorn.push({
                     id: doc.id,
                     uid: doc.ref.parent.parent.id,
                     ...doc.data()
-                
                 })
                 console.log(loadedCorn)
             })
@@ -129,11 +127,7 @@ async function getStockData(API_KEY) {
         corns,
         addSoybeans,
         soybeans,
-        deleteCorn 
-
-        // getCorn
-        
-    
+        deleteCorn
     }
 
     return (

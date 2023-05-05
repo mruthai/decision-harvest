@@ -1,16 +1,10 @@
-import AgPost from "../components/CornPost"
-
-
-
+import CornPost from "../components/CornPost"
 import { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthProvider'
-import { DataContext } from '../contexts/DataProvider'
 
-export default function Commodities() {
+
+export default function MyCornData() {
     const { user } = useContext(AuthContext)
-    const { corns } = useContext(DataContext)
-    
-    
     return (
         <header className="App-header">
             <h1> Corn History Value</h1>
@@ -20,8 +14,7 @@ export default function Commodities() {
                 (user.loggedIn)
             }
             <div>
-            {corns.map((c) => <AgPost corns={[c.cornBushel, c.cornStock, c.cornValue, c.dateCreated.toDate().toString()]} key={c.id}/>)}
-            
+            <CornPost/>
             </div>
             
         </header>
@@ -33,4 +26,4 @@ export default function Commodities() {
 
 
 
-// THIS CODE CALLS THE API OVER AND OVER AGAIN
+

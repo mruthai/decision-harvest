@@ -28,22 +28,6 @@ export default function AgPrice() {
         handleLoad()
     }, [])
 
-    // useEffect(() => {
-    //     async function handleLoad() {
-    //         try {
-    //             const data = await showCorn(id, uid)
-    //             setResultCorn(data)
-    //             console.log(data)
-    //             setLoadingState("LOADED")
-    //         } catch (err) {
-    //             setPostError(true)
-    //         }
-    //     }
-
-    //     handleLoad()
-    // }, [id,uid])
-
-
 
     // capture corn value of user input
     async function handleSubmit(e) {
