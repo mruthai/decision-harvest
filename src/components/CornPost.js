@@ -7,10 +7,11 @@ export default function CornPost(props) {
     const { deleteCorn, corns } = useContext(DataContext)
     const [data, setData] = useState([])
     
-    const handleDelete = (id) => {
-        const newData = data.filter((item) => item.id !== id);
-        setData(newData);
-      };
+    // const handleDelete = async (id, e) => {
+    //     e.preventDefault()
+    //     const newData = data.filter((item) => item.id !== id);
+    //     setData(newData);
+    //   };
     
 
     return (
@@ -32,7 +33,7 @@ export default function CornPost(props) {
                             <td>{item.cornBushel}</td>
                             <td>{item.cornValue}</td>
                             <td>{item.dateCreated.toDate().toString()}</td>
-                            <td><button className="btn" onClick={(e) => handleDelete(deleteCorn(item.id, e))}>Delete Value</button></td>
+                            <td><button className="btn" onClick={() => deleteCorn(item.id, )}>Delete Value</button></td>
                         </tr>
                     ))}
                 </tbody>

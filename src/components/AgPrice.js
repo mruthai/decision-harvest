@@ -34,7 +34,7 @@ export default function AgPrice() {
         e.preventDefault()
         const newCorn = await addCorn(myCorn, (Math.round(futures.data[0].value) * 0.0254) * myCorn, (Math.round(futures.data[0].value) * 0.0254))
         setMyCorn('')
-        console.log(newCorn, 'coming from AgPrice')
+        console.log(newCorn, 'add corn value')
     }
     //capture soybean return value of user input
     async function handleSubmitSoy(e) {

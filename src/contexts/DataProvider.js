@@ -64,14 +64,15 @@ async function getStockData(API_KEY) {
         return newCorn
     }
     
-
+// Delete corn from Corn history
     async function deleteCorn(uid, id) {
         try {
         const docRef = doc(db,`users/${user.uid}/corns/${uid}`);
         console.log('docRef:', docRef);
         await deleteDoc(docRef);
+        setCorns(corns.filter((item) => item.id !== id))
+        // setCorns(prevCorns => prevCorns.filter(corns => corns.id !== id))
         console.log('Document successfully deleted.');
-        setCorns(prevCorns => prevCorns.filter(corns => corns.uid !== id))
       } catch (error) {
         console.error('Error deleting document: ', error);
       }
