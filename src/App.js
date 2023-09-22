@@ -13,33 +13,35 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <nav className="nav-bar">
-          <ul className="nav-left">
+        <nav className="">
+          <ul className="navBar">
             <img src="./images/farms.png" alt="" />
             {
               (user.loggedIn) ?
                 <>
-                  <li><Link className="nav-link" to="/">Decision Harvest</Link> </li>
-                  <li><Link className="nav-link" to="/profile">Profile</Link> </li>
-                  <li><Link className="nav-link" to="/mycorndata">Corn Data</Link> </li>
-                  <li><Link className="nav-link" to="/cornhistory">Corn History</Link> </li>
-                  <li >{user.displayName}</li>
+                  <div className="navLinkContainer">
+                    <li><Link className="nav-link" to="/">Decision Harvest</Link> </li>
+                    <li><Link className="nav-link" to="/profile">Profile</Link> </li>
+                    <li><Link className="nav-link" to="/mycorndata">Corn Data</Link> </li>
+                    <li><Link className="nav-link" to="/cornhistory">Corn History</Link> </li>
+                  </div>
                   <li><button className="auth-btn" onClick={logout}> Logout</button></li>
                 </> :
 
                 <li><button className="auth-btn" onClick={login}> Login</button></li>
             }
+            <li >{user.displayName}</li>
           </ul>
         </nav>
 
       </div>
       <Routes>
-        
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />}  />
-          <Route path="/mycorndata" element={<MyCornData />} />
-          <Route path="/cornhistory" element={<CornHistory />} />
-        
+
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/mycorndata" element={<MyCornData />} />
+        <Route path="/cornhistory" element={<CornHistory />} />
+
       </Routes>
     </BrowserRouter>
   );
